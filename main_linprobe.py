@@ -41,7 +41,7 @@ from engine_finetune import train_one_epoch, evaluate
 
 def get_args_parser():
     parser = argparse.ArgumentParser('MAE linear probing for image classification', add_help=False)
-    parser.add_argument('--batch_size', default=512, type=int,
+    parser.add_argument('--batch_size', default=64, type=int,
                         help='Batch size per GPU (effective batch size is batch_size * accum_iter * # gpus')
     parser.add_argument('--epochs', default=50, type=int)
     parser.add_argument('--accum_iter', default=1, type=int,
@@ -67,7 +67,7 @@ def get_args_parser():
                         help='epochs to warmup LR')
 
     # * Finetuning params
-    parser.add_argument('--finetune', default='',
+    parser.add_argument('--finetune', default='/kaggle/working/IN1K-vit.h.14-300e.pth.tar',
                         help='finetune from checkpoint')
     parser.add_argument('--global_pool', action='store_true')
     parser.set_defaults(global_pool=True)
@@ -75,14 +75,14 @@ def get_args_parser():
                         help='Use class token instead of global pool for classification')
 
     # Dataset parameters
-    parser.add_argument('--data_path', default='/datasets01/imagenet_full_size/061417/', type=str,
+    parser.add_argument('--data_path', default='/kaggle/input/imagenetmini-1000/imagenet-mini', type=str,
                         help='dataset path')
     parser.add_argument('--nb_classes', default=1000, type=int,
                         help='number of the classification types')
 
-    parser.add_argument('--output_dir', default='./output_dir',
+    parser.add_argument('--output_dir', default='/kaggle/working/',
                         help='path where to save, empty for no saving')
-    parser.add_argument('--log_dir', default='./output_dir',
+    parser.add_argument('--log_dir', default='/kaggle/working/',
                         help='path where to tensorboard log')
     parser.add_argument('--device', default='cuda',
                         help='device to use for training / testing')
