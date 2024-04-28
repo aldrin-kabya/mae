@@ -196,7 +196,8 @@ def main(args):
 
         print("Load pre-trained checkpoint from: %s" % args.finetune)
         checkpoint_model = checkpoint['encoder']
-        state_dict = model.state_dict()
+        state_dict0 = model.state_dict()
+        state_dict = {k.replace("module.", ""): v for k, v in state_dict0.items()}
         for k in ['head.weight', 'head.bias']:
             if k in checkpoint_model and checkpoint_model[k].shape != state_dict[k].shape:
                 print(f"Removing key {k} from pretrained checkpoint")
