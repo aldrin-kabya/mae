@@ -195,9 +195,10 @@ def main(args):
         checkpoint = torch.load(args.finetune, map_location='cpu')
 
         print("Load pre-trained checkpoint from: %s" % args.finetune)
-        checkpoint_model = checkpoint['encoder']
-        state_dict0 = model.state_dict()
-        state_dict = {k.replace("module.", ""): v for k, v in state_dict0.items()}
+        checkpoint_model0 = checkpoint['encoder']
+        checkpoint_model = {k.replace("module.", ""): v for k, v in checkpoint_model0.items()}
+        state_dict = model.state_dict()
+        
         for k in ['head.weight', 'head.bias']:
             if k in checkpoint_model and checkpoint_model[k].shape != state_dict[k].shape:
                 print(f"Removing key {k} from pretrained checkpoint")
