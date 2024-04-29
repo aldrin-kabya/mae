@@ -86,7 +86,7 @@ def interpolate_pos_embed(model, checkpoint_model):
         print(f"num_extra_tokens: {num_extra_tokens}")
         
         # height (== width) for the checkpoint position embedding
-        orig_size = int((pos_embed_checkpoint.shape[-2] - num_extra_tokens) ** 0.5)
+        orig_size = int((pos_embed_checkpoint.shape[-2]) ** 0.5)
         # height (== width) for the new position embedding
         new_size = int(num_patches ** 0.5)
 
