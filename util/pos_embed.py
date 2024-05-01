@@ -77,7 +77,7 @@ def interpolate_pos_embed(model, checkpoint_model):
         pos_embed_checkpoint = checkpoint_model['pos_embed']
         embedding_size = pos_embed_checkpoint.shape[-1]
         num_patches = model.patch_embed.num_patches
-        num_extra_tokens = model.pos_embed.shape[-2] - (num_patches + 1)
+        num_extra_tokens = model.pos_embed.shape[-2] - num_patches
         
         print(f"embedding_size: {embedding_size}")
         print(f"model.pos_embed.shape: {model.pos_embed.shape}")
