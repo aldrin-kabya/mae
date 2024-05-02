@@ -131,6 +131,6 @@ def interpolate_pos_embed(model, checkpoint_model):
         pos_embed_checkpoint = pos_embed_checkpoint.squeeze(0)
 
     # Update the checkpoint model with interpolated positional embeddings
-    checkpoint_model.pos_embed = pos_embed_checkpoint
+    checkpoint_model['pos_embed'] = pos_embed_checkpoint
 
     return checkpoint_model
