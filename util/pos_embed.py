@@ -72,6 +72,7 @@ def get_1d_sincos_pos_embed_from_grid(embed_dim, pos):
 # References:
 # DeiT: https://github.com/facebookresearch/deit
 # --------------------------------------------------------
+'''
 def interpolate_pos_embed(model, checkpoint_model):
     if 'pos_embed' in checkpoint_model:
         pos_embed_checkpoint = checkpoint_model['pos_embed']
@@ -112,3 +113,24 @@ def interpolate_pos_embed(model, checkpoint_model):
             print(f"pos_tokens.size: {pos_tokens.size()}")
             new_pos_embed = torch.cat((extra_tokens, pos_tokens), dim=1)
             checkpoint_model['pos_embed'] = new_pos_embed
+'''
+
+def interpolate_pos_embed(model, checkpoint_model):
+    # Extract positional embeddings from both models
+    pos_embed_model = model.pos_embed
+    pos_embed_checkpoint = checkpoint_model.pos_embed
+
+    # Shape of positional embeddings in the model and checkpoint
+    shape_model = pos_embed_model.shape
+    shape_checkpoint = pos_embed_checkpoint.shape
+
+    # Check if interpolation is needed
+    if shape_model[1] != shape_checkpoint[1]:
+        # If the number of tokens differs, interpolate
+        pos_embed_checkpoint = F.interpolate(pos_embed_checkpoint.unsqueeze(0), size=(shape_model[1], shape_model[2]), mode='bicubic', align_corners=False)
+        pos_embed_checkpoint = pos_embed_checkpoint.squeeze(0)
+
+    # Update the checkpoint model with interpolated positional embeddings
+    checkpoint_model.pos_embed = pos_embed_checkpoint
+
+    return checkpoint_model
