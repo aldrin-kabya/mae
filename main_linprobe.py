@@ -216,6 +216,8 @@ def main(args):
         else:
             assert set(msg.missing_keys) == {'head.weight', 'head.bias'}
 
+        print("Missing keys:", msg.missing_keys)
+
         # manually initialize fc layer: following MoCo v3
         trunc_normal_(model.head.weight, std=0.01)
 
