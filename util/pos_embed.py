@@ -117,11 +117,10 @@ def interpolate_pos_embed(model, checkpoint_model):
 
 def interpolate_pos_embed(model, checkpoint_model):
     # Extract positional embeddings from both models
-    pos_embed_model = model['pos_embed']
     pos_embed_checkpoint = checkpoint_model['pos_embed']
 
     # Shape of positional embeddings in the model and checkpoint
-    shape_model = pos_embed_model.shape
+    shape_model = model.pos_embed.shape
     shape_checkpoint = pos_embed_checkpoint.shape
 
     # Check if interpolation is needed
