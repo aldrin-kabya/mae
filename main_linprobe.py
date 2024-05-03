@@ -211,11 +211,6 @@ def main(args):
         msg = model.load_state_dict(checkpoint_model, strict=False)
         print(msg)
 
-        state_dict_keys = msg.state_dict().keys()
-        print("All keys in the state dictionary:")
-        for key in state_dict_keys:
-            print(key)
-
         if args.global_pool:
             assert set(msg.missing_keys) == {'head.weight', 'head.bias', 'fc_norm.weight', 'fc_norm.bias'}
         else:
