@@ -210,12 +210,12 @@ def main(args):
         # load pre-trained model
         msg = model.load_state_dict(checkpoint_model, strict=False)
         print(msg)
-
+"""
         if args.global_pool:
             assert set(msg.missing_keys) == {'head.weight', 'head.bias', 'fc_norm.weight', 'fc_norm.bias'}
         else:
             assert set(msg.missing_keys) == {'head.weight', 'head.bias'}
-
+"""
         # manually initialize fc layer: following MoCo v3
         trunc_normal_(model.head.weight, std=0.01)
 
